@@ -2,11 +2,8 @@
 
 pipeline {
     agent any
-    options {
-        timestamps()
-    }
     stages {
-        stage('Build project A') {
+        stage('Build project1') {
             when {
                 changeset "project1/**"
             }
@@ -14,7 +11,7 @@ pipeline {
                 build 'project1'
             }
         }
-        stage('Build project B') {
+        stage('Build project2') {
             when {
                 changeset "project2/**"
             }

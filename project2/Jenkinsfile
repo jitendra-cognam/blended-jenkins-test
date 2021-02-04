@@ -1,0 +1,25 @@
+pipeline {
+   agent any
+   stages {
+       stage("Init") {
+           steps {
+               echo "Running init stage inside project2."
+           }
+       }
+       stage("build") {
+           steps {
+               echo "Running build stage inside project2."
+           }
+       }
+       stage("test") {
+           steps {
+               echo "Running test stage inside project2."
+           }
+       }
+       stage("deploy") {
+           steps {
+               echo "Running deploy stage inside project2."
+           }
+       }
+   }
+}
