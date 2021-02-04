@@ -1,2 +1,2 @@
 ### Inside project1
-* item1
+* item
