@@ -23,4 +23,11 @@ pipeline {
            }
        }
    }
+   post {
+       always {
+           mail to: 'jkumar@cognam.com',
+          subject: "Result Pipeline: ${currentBuild.fullDisplayName}",
+          body: "Please check here: ${env.BUILD_URL}"
+       }
+   }
 }
