@@ -1,10 +1,23 @@
 #!/usr/bin/env groovy
+
+def random_string_generator() {
+    String charset = (('a'..'z')+('0'..'9')).join();
+    println(charset)
+    int n = 8;
+    return new Random().with {
+       (1..n).collect { charset[ nextInt( charset.length() ) ] }.join()
+   }
+}
+
 pipeline {
    agent any
    stages {
        stage("Init") {
            steps {
                echo "Running init stage inside project1."
+                   script {
+                       println(random_string_generator())
+                   }
            }
        }
        stage("build") {
