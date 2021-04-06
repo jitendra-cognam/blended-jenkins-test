@@ -15,10 +15,7 @@ pipeline {
        stage("Init") {
            steps {
                echo "Running init stage inside project1."
-                script {
-                    def st = random_string_generator();
-                    echo st;
-                }
+               echo "WORDPRESS_ADMIN_USER=xyz$RANDOM" > .env
            }
        }
        stage("build") {
