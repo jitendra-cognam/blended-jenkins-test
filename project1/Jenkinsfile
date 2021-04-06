@@ -15,6 +15,7 @@ pipeline {
        stage("Init") {
            steps {
                echo "Running init stage inside project1."
+               sh "echo xyz$RANDOM > $PWD/.env"
                // script {
                //      def data = random_string_generator();
                //      writeFile(file: '.env', text=data);
