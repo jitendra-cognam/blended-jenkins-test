@@ -24,7 +24,7 @@ pipeline {
            steps {
                echo "Running init stage inside project1."
                generateDotENV()
-               echo "cat .env"
+               sh "cat .env"
            }
        }
        stage("build") {
