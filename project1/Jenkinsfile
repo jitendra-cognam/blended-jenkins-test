@@ -21,6 +21,7 @@ pipeline {
                     sh 'ls -al'
                     sh 'cat .env'
                }
+               echo "Running init stage inside project1-1."
            }
        }
        stage("build") {
