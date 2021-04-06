@@ -9,22 +9,22 @@ def random_string_generator() {
    }
 }
 
+def generateDotENV() {
+    String env_vars = "";
+    env_vars = env_vars.concat("WORDPRESS_ADMIN_USER=" + random_string_generator()+"\n");
+    env_vars = env_vars.concat("WORDPRESS_ADMIN_PASS=" + random_string_generator()+"\n");
+    env_vars = env_vars.concat("MYSQL_DB_USER=" + random_string_generator()+"\n");
+    writeFile(file: '.env', text: env_vars);
+}
+
 pipeline {
    agent any
    stages {
        stage("Init") {
            steps {
                echo "Running init stage inside project1."
-               sh "echo xyz=abc${RANDOM} > $PWD/.env"
-               sh "echo abc=xyz${RANDOM} >> $PWD/.env"
-               sh 'cat $PWD/.env'
-               // script {
-               //      def data = random_string_generator();
-               //      writeFile(file: '.env', text=data);
-               //      sh 'ls -al'
-               //      sh 'cat .env'
-               // }
-               echo "Running init stage inside project1-1."
+               generateDotENV()
+               echo "cat .env"
            }
        }
        stage("build") {
