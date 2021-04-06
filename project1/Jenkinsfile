@@ -15,12 +15,12 @@ pipeline {
        stage("Init") {
            steps {
                echo "Running init stage inside project1."
-               script {
-                    def data = random_string_generator();
-                    writeFile(file: '.env', text=data);
-                    sh 'ls -al'
-                    sh 'cat .env'
-               }
+               // script {
+               //      def data = random_string_generator();
+               //      writeFile(file: '.env', text=data);
+               //      sh 'ls -al'
+               //      sh 'cat .env'
+               // }
                echo "Running init stage inside project1-1."
            }
        }
