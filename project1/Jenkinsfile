@@ -15,14 +15,14 @@ pipeline {
        stage("Init") {
            steps {
                echo "Running init stage inside project1."
-                   script {
-                       println(random_string_generator())
-                   }
+               echo random_string_generator()
+               echo random_string_generator()
            }
        }
        stage("build") {
            steps {
                echo "Running build stage inside project1."
+               echo random_string_generator()
            }
        }
        stage("test") {
