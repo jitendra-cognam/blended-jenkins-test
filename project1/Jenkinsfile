@@ -9,39 +9,38 @@ def random_string_generator() {
     return sb.toString();
 }
 
-// def generateDotENV() {
-//     String env_vars = (
-//             "MYSQL_DATABASE=" + random_string_generator() + "\n" +
-//             "MYSQL_USER=" + random_string_generator() + "\n" +
-//             "MYSQL_PASSWORD=" + random_string_generator() + "\n" +
-//             "MYSQL_ROOT_PASSWORD=" + random_string_generator() + "\n" +
-//             "MYSQL_RANDOM_ROOT_PASSWORD=" + random_string_generator() + "\n" +
-//             "WORDPRESS_DB_USER=" + random_string_generator() + "\n" +
-//             "WORDPRESS_DB_PASSWORD=" + random_string_generator() + "\n" +
-//             "WORDPRESS_ADMIN_USER=" + random_string_generator() + "\n" +
-//             "WORDPRESS_ADMIN_PASS=" + random_string_generator() + "\n" +
-//             "WORDPRESS_ADMIN_SITE_TITLE=" + random_string_generator() + "\n"
-//         );
-//     withCredentials([
-//         usernamePassword(
-//             credentialsId: 'cognam-blended-dev-github',
-//             usernameVariable: 'github_username',
-//             passwordVariable: 'github_password'
-//         )
-//     ], [
-//         string(
-//             credentialsId: 'wordpress-admin-email',
-//             variable: 'wordpress_admin_email'
-//         )
-//     ]) {
-//         env_vars = env_vars.concat(
-//             "GITHUB_USER=" + github_username + "\n" +
-//             "GITHUB_PASS=" + github_password + "\n" +
-//             "WORDPRESS_ADMIN_EMAIL=" + wordpress_admin_email
-//         )
-//     }
-//     writeFile(file: '.env', text: env_vars);
-// }
+def generateDotENV() {
+    String env_vars = (
+            "MYSQL_DATABASE=" + random_string_generator() + "\n" +
+            "MYSQL_USER=" + random_string_generator() + "\n" +
+            "MYSQL_PASSWORD=" + random_string_generator() + "\n" +
+            "MYSQL_ROOT_PASSWORD=" + random_string_generator() + "\n" +
+            "MYSQL_RANDOM_ROOT_PASSWORD=" + random_string_generator() + "\n" +
+            "WORDPRESS_DB_USER=" + random_string_generator() + "\n" +
+            "WORDPRESS_DB_PASSWORD=" + random_string_generator() + "\n" +
+            "WORDPRESS_ADMIN_USER=" + random_string_generator() + "\n" +
+            "WORDPRESS_ADMIN_PASS=" + random_string_generator() + "\n" +
+            "WORDPRESS_ADMIN_SITE_TITLE=" + random_string_generator() + "\n"
+        );
+    withCredentials([
+        usernamePassword(
+            credentialsId: 'cognam-blended-dev-github',
+            usernameVariable: 'BLENDED_GITHUB_USER',
+            passwordVariable: 'BLENDED_GITHUB_PASS'
+        ),
+        string(
+            credentialsId: 'wordpress-admin-email',
+            variable: 'WORDPRESS_ADMIN_EMAIL'
+        )
+    ]) {
+        env_vars = env_vars.concat(
+            "GITHUB_USER=" + BLENDED_GITHUB_USER + "\n" +
+            "GITHUB_PASS=" + BLENDED_GITHUB_PASS + "\n" +
+            "WORDPRESS_ADMIN_EMAIL=" + WORDPRESS_ADMIN_EMAIL
+        )
+    }
+    writeFile(file: '.env', text: env_vars);
+}
 
 pipeline {
    agent any
@@ -49,32 +48,32 @@ pipeline {
        stage("Init") {
            steps {
                echo "Running init stage inside project1."
-               // generateDotENV()
-               script {
-                    String env_vars = (
-                            "MYSQL_DATABASE=" + random_string_generator() + "\n" +
-                            "MYSQL_USER=" + random_string_generator() + "\n" +
-                            "MYSQL_PASSWORD=" + random_string_generator() + "\n" +
-                            "MYSQL_ROOT_PASSWORD=" + random_string_generator() + "\n" +
-                            "MYSQL_RANDOM_ROOT_PASSWORD=" + random_string_generator() + "\n" +
-                            "WORDPRESS_DB_USER=" + random_string_generator() + "\n" +
-                            "WORDPRESS_DB_PASSWORD=" + random_string_generator() + "\n" +
-                            "WORDPRESS_ADMIN_USER=" + random_string_generator() + "\n" +
-                            "WORDPRESS_ADMIN_PASS=" + random_string_generator() + "\n" +
-                            "WORDPRESS_ADMIN_SITE_TITLE=" + random_string_generator() + "\n"
-                        );
-                    withCredentials([
-                        usernamePassword(credentialsId: 'cognam-blended-dev-github',usernameVariable: 'github_username', passwordVariable: 'github_password'),
-                        string(credentialsId: 'wordpress-admin-email', variable: 'wordpress_admin_email')
-                    ]) {
-                        env_vars = env_vars.concat(
-                            "GITHUB_USER=" + github_username + "\n" +
-                            "GITHUB_PASS=" + github_password + "\n" +
-                            "WORDPRESS_ADMIN_EMAIL=" + wordpress_admin_email
-                        )
-                    }
-                    writeFile(file: '.env', text: env_vars);
-               }
+               generateDotENV()
+               // script {
+               //      String env_vars = (
+               //              "MYSQL_DATABASE=" + random_string_generator() + "\n" +
+               //              "MYSQL_USER=" + random_string_generator() + "\n" +
+               //              "MYSQL_PASSWORD=" + random_string_generator() + "\n" +
+               //              "MYSQL_ROOT_PASSWORD=" + random_string_generator() + "\n" +
+               //              "MYSQL_RANDOM_ROOT_PASSWORD=" + random_string_generator() + "\n" +
+               //              "WORDPRESS_DB_USER=" + random_string_generator() + "\n" +
+               //              "WORDPRESS_DB_PASSWORD=" + random_string_generator() + "\n" +
+               //              "WORDPRESS_ADMIN_USER=" + random_string_generator() + "\n" +
+               //              "WORDPRESS_ADMIN_PASS=" + random_string_generator() + "\n" +
+               //              "WORDPRESS_ADMIN_SITE_TITLE=" + random_string_generator() + "\n"
+               //          );
+               //      withCredentials([
+               //          usernamePassword(credentialsId: 'cognam-blended-dev-github',usernameVariable: 'github_username', passwordVariable: 'github_password'),
+               //          string(credentialsId: 'wordpress-admin-email', variable: 'wordpress_admin_email')
+               //      ]) {
+               //          env_vars = env_vars.concat(
+               //              "GITHUB_USER=" + github_username + "\n" +
+               //              "GITHUB_PASS=" + github_password + "\n" +
+               //              "WORDPRESS_ADMIN_EMAIL=" + wordpress_admin_email
+               //          )
+               //      }
+               //      writeFile(file: '.env', text: env_vars);
+               // }
                sh "cat .env"
            }
        }
