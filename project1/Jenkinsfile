@@ -64,8 +64,7 @@ pipeline {
                             "WORDPRESS_ADMIN_SITE_TITLE=" + random_string_generator() + "\n"
                         );
                     withCredentials([
-                        usernamePassword(credentials: 'cognam-blended-dev-github',usernameVariable: 'github_username', passwordVariable: 'github_password')
-                    ], [
+                        usernamePassword(credentials: 'cognam-blended-dev-github',usernameVariable: 'github_username', passwordVariable: 'github_password'),
                         string(credentialsId: 'wordpress-admin-email', variable: 'wordpress_admin_email')
                     ]) {
                         env_vars = env_vars.concat(
