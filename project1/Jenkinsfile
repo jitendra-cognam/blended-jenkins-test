@@ -10,10 +10,18 @@ def random_string_generator() {
 }
 
 def generateDotENV() {
-    String env_vars = "";
-    env_vars = env_vars.concat("WORDPRESS_ADMIN_USER=" + random_string_generator()+"\n");
-    env_vars = env_vars.concat("WORDPRESS_ADMIN_PASS=" + random_string_generator()+"\n");
-    env_vars = env_vars.concat("MYSQL_DB_USER=" + random_string_generator()+"\n");
+    String env_vars = (
+            "MYSQL_DATABASE=" + random_string_generator() + "\n" +
+            "MYSQL_USER=" + random_string_generator() + "\n" +
+            "MYSQL_PASSWORD=" + random_string_generator() + "\n" +
+            "MYSQL_ROOT_PASSWORD=" + random_string_generator() + "\n" +
+            "MYSQL_RANDOM_ROOT_PASSWORD=" + random_string_generator() + "\n" +
+            "WORDPRESS_DB_USER=" + random_string_generator() + "\n" +
+            "WORDPRESS_DB_PASSWORD=" + random_string_generator() + "\n" +
+            "WORDPRESS_ADMIN_USER=" + random_string_generator() + "\n" +
+            "WORDPRESS_ADMIN_PASS=" + random_string_generator() + "\n" +
+            "WORDPRESS_ADMIN_SITE_TITLE=" + random_string_generator() + "\n"
+        );
     writeFile(file: '.env', text: env_vars);
 }
 
