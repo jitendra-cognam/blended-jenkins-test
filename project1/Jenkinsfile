@@ -49,7 +49,7 @@ pipeline {
        stage("Init") {
            steps {
                echo "Running init stage inside project1."
-               generateDotenvForDocker()
+               generateDotenvForDocker("master")
                sh "cat .env"
            }
        }
