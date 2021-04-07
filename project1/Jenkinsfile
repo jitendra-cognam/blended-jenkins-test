@@ -22,24 +22,24 @@ def generateDotENV() {
             "WORDPRESS_ADMIN_PASS=" + random_string_generator() + "\n" +
             "WORDPRESS_ADMIN_SITE_TITLE=" + random_string_generator() + "\n"
         );
-    withCredentials([
-        usernamePassword(
-            credentialsId: 'cognam-blended-dev-github',
-            usernameVariable: 'github_username',
-            passwordVariable: 'github_password'
-        )
-    ], [
-        string(
-            credentialsId: 'wordpress-admin-email',
-            variable: 'wordpress_admin_email'
-        )
-    ]) {
-        env_vars = env_vars.concat(
-            "GITHUB_USER=" + github_username + "\n" +
-            "GITHUB_PASS=" + github_password + "\n" +
-            "WORDPRESS_ADMIN_EMAIL=" + wordpress_admin_email
-        )
-    }
+    // withCredentials([
+    //     usernamePassword(
+    //         credentialsId: 'cognam-blended-dev-github',
+    //         usernameVariable: 'github_username',
+    //         passwordVariable: 'github_password'
+    //     )
+    // ], [
+    //     string(
+    //         credentialsId: 'wordpress-admin-email',
+    //         variable: 'wordpress_admin_email'
+    //     )
+    // ]) {
+    //     env_vars = env_vars.concat(
+    //         "GITHUB_USER=" + github_username + "\n" +
+    //         "GITHUB_PASS=" + github_password + "\n" +
+    //         "WORDPRESS_ADMIN_EMAIL=" + wordpress_admin_email
+    //     )
+    // }
     writeFile(file: '.env', text: env_vars);
 }
 
